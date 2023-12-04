@@ -1,5 +1,6 @@
 package com.dicoding.habitapp.ui.list
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.habitapp.R
 import com.dicoding.habitapp.data.Habit
+import com.dicoding.habitapp.databinding.HabitItemBinding
 
 class HabitAdapter(
     private val onClick: (Habit) -> Unit
@@ -16,7 +18,9 @@ class HabitAdapter(
 
     //TODO 8 : Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
-        throw NotImplementedError("Not yet implemented")
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = HabitItemBinding.inflate(inflater,parent,false)
+        return  HabitViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
