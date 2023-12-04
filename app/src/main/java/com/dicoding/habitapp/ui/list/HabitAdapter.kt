@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.habitapp.R
 import com.dicoding.habitapp.data.Habit
 import com.dicoding.habitapp.databinding.HabitItemBinding
+import com.dicoding.habitapp.utils.setPriorityImage
 
 class HabitAdapter(
     private val onClick: (Habit) -> Unit
@@ -19,12 +20,22 @@ class HabitAdapter(
     //TODO 8 : Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = HabitItemBinding.inflate(inflater,parent,false)
-        return  HabitViewHolder(binding.root)
+        val binding = HabitItemBinding.inflate(inflater, parent, false)
+        return HabitViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         //TODO 9 : Get data and bind them to ViewHolder
+        val habit = getItem(position)
+        if (habit != null) {
+            holder.bind(habit)
+            holder.ivPriority.setImageResource(
+                setPriorityImage(
+                    holder.itemView.context,
+                    habit.priorityLevel
+                )
+            )
+        }
     }
 
     inner class HabitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
