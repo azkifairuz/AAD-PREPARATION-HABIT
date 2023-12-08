@@ -3,9 +3,13 @@ package com.dicoding.habitapp.ui.random
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.habitapp.R
 import com.dicoding.habitapp.data.Habit
+import com.dicoding.habitapp.utils.setPriorityImage
 
 class RandomHabitAdapter(
     private val onClick: (Habit) -> Unit
@@ -39,9 +43,22 @@ class RandomHabitAdapter(
     inner class PagerViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         //TODO 14 : Create view and bind data to item view
-
+        private val tvTitle: TextView = itemView.findViewById(R.id.pager_tv_title)
+        private val tvStartTime: TextView = itemView.findViewById(R.id.tv_start_time)
+        private val tvMinutes: TextView = itemView.findViewById(R.id.pager_tv_minutes)
+        private val ivPriority: ImageView = itemView.findViewById(R.id.item_priority_level)
+        private val startCountButton: Button = itemView.findViewById(R.id.btn_open_count_down)
         fun bind(pageType: PageType, pageData: Habit) {
+            tvTitle.text = pageData.title
+            tvStartTime.text = pageData.startTime
+            tvMinutes.text = pageData.minutesFocus.toString()
 
+            val priorityImageResId = setPriorityImage(itemView.context, pageData.priorityLevel)
+            ivPriority.setImageResource(priorityImageResId)
+
+            startCountButton.setOnClickListener {
+                onClick(pageData)
+            }
         }
     }
 }

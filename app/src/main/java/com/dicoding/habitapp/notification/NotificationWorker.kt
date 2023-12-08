@@ -70,4 +70,3 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
     }
 }
 
-}
